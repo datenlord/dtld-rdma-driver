@@ -6,7 +6,8 @@
 		"vscode": {
 			"extensions": [
 				"llvm-vs-code-extensions.vscode-clangd",
-				"ms-vscode.cpptools"
+				"ms-vscode.cpptools",
+				"rust-lang.rust-analyzer"
 			]
 		}
 	},

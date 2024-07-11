@@ -1,0 +1,55 @@
+name: open-rdma-driver CI test
+on:
+  pull_request:
+    branches: [refactor]
+  push:
+    branches: [refactor]
+
+jobs:
+  ci-check:
+    name: rust-driver test
+    runs-on: self-hosted
+    container:
+      image: ghcr.io/myrfy001/hard_devcontainer:main
+      options: --privileged
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Checkout tools repo
+        uses: actions/checkout@v4
+        with:
+          repository: datenlord/blue-rdma
+          ref: next
+          fetch-depth: 0
+          submodules: 'true'
+          path: blue-rdma
+      - uses: actions/cache@v4
+        id: cache-building-emulator
+        with:
+          path: |
+            ~/.bash_profile
+            blue-rdma/bsc-2023.01-ubuntu-22.04
+            blue-rdma/test
+            ~/.cache/pip
+          key: ${{ runner.os }}-blue-rdma-next
+      - name: build emulator
+        if: steps.cache-building-emulator.outputs.cache-hit != 'true'
+        run : |
+          apt update && apt install -y python3-pip
+          pip3 install scapy 
+          cd ./blue-rdma
+          ./setup.sh
+          ./run_one.sh || true
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: run cargo build
+        working-directory: rust-driver
+        run : cargo build --verbose 
+      - name: pre run emulator
+        run : |
+          cd blue-rdma
+          ./run_system_test.sh
+      - name: run cargo test
+        working-directory: rust-driver
+        run : cargo test --verbose
