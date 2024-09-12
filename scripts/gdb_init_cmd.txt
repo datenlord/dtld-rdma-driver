@@ -1,0 +1,9 @@
+add-auto-load-safe-path /linux-src
+file /linux-src/vmlinux
+
+# in order to share this script file with both command-line gdb and vscode gui, never add the following command in this file
+# since it will cause vscode to stop the already running qemu. instead, when using gdb from cli (e.g., launched by `make gdb` command),
+# we will pass that argument by cli.
+## target remote :1234
+
+lx-symbols /linux-src/drivers/infiniband /workspaces/dtld-rdma-driver/driver

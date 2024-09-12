@@ -1,0 +1,29 @@
+{
+    "configurations": [
+
+        {
+            "name": "kernel-debug",
+            "logging": {"engineLogging":true, "trace":false, "traceResponse": false},
+            "type": "cppdbg",
+            "request": "launch",
+            "miDebuggerServerAddress": "127.0.0.1:1234",
+            "miDebuggerArgs": "-x ${workspaceFolder}/scripts/gdb_init_cmd.txt",
+            "program": "/linux-src/vmlinux",
+            "cwd": "${workspaceFolder}",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                },
+                
+            ],
+        },
+    ]
+}

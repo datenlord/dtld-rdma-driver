@@ -1,0 +1,4 @@
+[submodule "rdma-core"]
+	path = rdma-core
+	url = git@github.com:datenlord/rdma-core.git
+	branch = add-dtld-driver

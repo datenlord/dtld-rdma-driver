@@ -1,0 +1,14 @@
+{
+	"name": "DatenLord RDMA development environment",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "ghcr.io/myrfy001/hard_devcontainer:main",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"llvm-vs-code-extensions.vscode-clangd",
+				"ms-vscode.cpptools"
+			]
+		}
+	},
+	"runArgs": ["--privileged"]
+}

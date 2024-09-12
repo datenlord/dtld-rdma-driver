@@ -1,4 +1,9 @@
-/target
-/Cargo.lock
-
-.DS_Store
+*.cmd
+*.o
+*.order
+*.symvers
+*.ko
+*.mod
+*.mod.c
+.cache
+compile_commands.json
